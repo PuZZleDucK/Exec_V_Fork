@@ -16,11 +16,16 @@ import org.htmlparser.filters.NodeClassFilter;
 import org.htmlparser.tags.LinkTag;
 import org.htmlparser.util.NodeList;
 
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.HttpsURLConnection;
+ 
 import com.puzzleduck.acrawl.LinkHandler2;
 
 public class LinkFinder2 extends RecursiveAction
 {
 
+  private static StringBuffer threadDisplay = new StringBuffer("        ");
   private String thisUrl;
   private LinkHandler2 thisHandler;
 
@@ -35,19 +40,34 @@ public class LinkFinder2 extends RecursiveAction
   @Override
   public void compute()
   {
-    
+   
+  HostnameVerifier hostnameVerifier = new HostnameVerifier()
+  { 
+    public boolean verify(String urlHostName, SSLSession session) 
+    { 
+      System.out.println("Warning: URL Host: " + urlHostName + " v/s " + session.getPeerHost());
+      return true; 
+    } 
+  }; 
+  HttpsURLConnection.setDefaultHostnameVerifier(hostnameVerifier);
+
+
+
+ 
     if(!thisHandler.visited(thisUrl))
     {
       try
       {
 //        System.out.println("Thread: "+  Thread.currentThread().getName().charAt(22)   +"          ."); //Thread: ForkJoinPool-1-worker-1
-//        System.out.print("\n" + thisHandler.size() + ": Processing: "+thisUrl);
+        System.out.println("\n" + thisHandler.size() + ": Processing: "+thisUrl);
 
         //System.out.println();
 
         int threadNumber = Integer.parseInt(Thread.currentThread().getName().charAt(22)+"");
-        for(int i = 0; i<=threadNumber; i++){System.out.print("\t");}
-        System.out.println(threadNumber);
+        //for(int i = 0; i<=threadNumber; i++){System.out.print("\t");}
+        //System.out.print(threadNumber);
+        threadDisplay.setCharAt(threadNumber, '*');
+        System.out.print("\b\b\b\b\b\b\b\b"+threadDisplay);
         List<RecursiveAction> actions = new ArrayList<RecursiveAction>();
         URL urlObject = new URL(thisUrl);
         Parser parser = new Parser(urlObject.openConnection());
@@ -57,6 +77,10 @@ public class LinkFinder2 extends RecursiveAction
 
         for(int i = 0; i < list.size(); i++)
         {
+          int iChar = ((i / list.size()) * 10) %10;
+          char dChar = Character.forDigit(iChar, 10);
+          threadDisplay.setCharAt(threadNumber, dChar);
+          System.out.print("\b\b\b\b\b\b\b\b"+threadDisplay);
           LinkTag currentFoundLink = (LinkTag) list.elementAt(i);
           if(!currentFoundLink.getLink().isEmpty() && !thisHandler.visited(currentFoundLink.getLink()))
           {
@@ -67,7 +91,7 @@ public class LinkFinder2 extends RecursiveAction
         }//for
         thisHandler.addVisited(thisUrl);
 
-         if(thisHandler.size() >= 1500)
+         if(thisHandler.size() >= 100)
          {
            System.out.print("\n\n...Time: " + ((System.nanoTime()-time0)/1000000) +"sec...\n\n");
            System.exit(0);
@@ -79,6 +103,8 @@ public class LinkFinder2 extends RecursiveAction
          //  thisHandler.queueLink(aLink);
          //}
 
+        threadDisplay.setCharAt(threadNumber, ' ');
+        System.out.print("\b\b\b\b\b\b\b\b"+threadDisplay);
       }catch(Exception e)
       {
         //System.out.print("\nhandler error: " + e.toString() );

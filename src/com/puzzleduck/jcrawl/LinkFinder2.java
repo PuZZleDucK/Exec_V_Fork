@@ -16,7 +16,7 @@ import org.htmlparser.filters.NodeClassFilter;
 import org.htmlparser.tags.LinkTag;
 import org.htmlparser.util.NodeList;
 
-import com.puzzleduck.jcrawl.LinkHandler;
+import com.puzzleduck.jcrawl.LinkHandler2;
 
 public class LinkFinder2 extends RecursiveAction
 {
