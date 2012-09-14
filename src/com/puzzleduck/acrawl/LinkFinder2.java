@@ -16,11 +16,11 @@ import org.htmlparser.filters.NodeClassFilter;
 import org.htmlparser.tags.LinkTag;
 import org.htmlparser.util.NodeList;
 
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.SSLSession;
-import javax.net.ssl.HttpsURLConnection;
- 
+
 import com.puzzleduck.acrawl.LinkHandler2;
+import com.puzzleduck.acrawl.HostVerifier;
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
 
 public class LinkFinder2 extends RecursiveAction
 {
@@ -41,14 +41,14 @@ public class LinkFinder2 extends RecursiveAction
   public void compute()
   {
    
-  HostnameVerifier hostnameVerifier = new HostnameVerifier()
-  { 
-    public boolean verify(String urlHostName, SSLSession session) 
-    { 
-      System.out.println("Warning: URL Host: " + urlHostName + " v/s " + session.getPeerHost());
-      return true; 
-    } 
-  }; 
+  HostnameVerifier hostnameVerifier = new HostVerifier();
+  //{ 
+  //  public boolean verify(String urlHostName, SSLSession session) 
+  //  { 
+  //    System.out.println("Warning: URL Host: " + urlHostName + " v/s " + session.getPeerHost());
+  //    return true; 
+  //  } 
+  //}; 
   HttpsURLConnection.setDefaultHostnameVerifier(hostnameVerifier);
 
 
