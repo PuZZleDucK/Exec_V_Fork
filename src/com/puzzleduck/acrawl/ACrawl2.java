@@ -17,15 +17,15 @@ import javax.swing.JPanel;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import java.awt.Dimension;
-
+import javax.swing.JButton;
 
 
 public class ACrawl2 implements LinkHandler2 
 {
 
   private static ACrawl2 jCrawler;//
-  private   final Collection<String> doneLinkList = Collections.synchronizedSet(new HashSet<String>());
-  protected final Collection<AppData> appLinkList = Collections.synchronizedSet(new HashSet<AppData>());
+  //private   final Collection<String> doneLinkList = Collections.synchronizedSet(new HashSet<String>());
+  protected final static Collection<AppData> appLinkList = Collections.synchronizedSet(new HashSet<AppData>());
   private String workingUrl;
 //  private ExecutorService executorService;
   private ForkJoinPool forkPool;
@@ -58,7 +58,13 @@ public class ACrawl2 implements LinkHandler2
     sPanel.setPreferredSize(panelD);
     mainPanel.add(sPanel);
     
+    JButton startButton = new JButton("Start Crawl");
+    JButton stopButton = new JButton("Stop Crawl");
 
+    //startButton.addActionListener();
+    //stopButton.addActionListener();
+    mainPanel.add(startButton);
+    mainPanel.add(stopButton);
 
     mainWindow.setVisible(true);
 
@@ -106,15 +112,18 @@ public class ACrawl2 implements LinkHandler2
 //  }
 
   @Override
-  public boolean visited(String link)
+  //public boolean visited(String link)
+  public boolean visited(AppData thisAppData)
   {
-    return doneLinkList.contains(link);
+    //return doneLinkList.contains(link);
+    return appLinkList.contains(thisAppData);
   }
 
   @Override
   public int size()
   {
-    return doneLinkList.size();
+    //return doneLinkList.size();
+    return appLinkList.size();
   }
 
 //  @Override
@@ -124,9 +133,11 @@ public class ACrawl2 implements LinkHandler2
 //  }
 
   @Override
-  public void addVisited(String s)
+  //public void addVisited(String s)
+  public void addVisited(AppData thisAppData)
   {
-    doneLinkList.add(s);
+    //doneLinkList.add(s);
+    appLinkList.add( thisAppData );
   }
 
 

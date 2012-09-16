@@ -1,6 +1,6 @@
 package com.puzzleduck.acrawl;
 
-
+//do not use
 import java.awt.Canvas;
 
 import java.awt.Color;
@@ -15,7 +15,7 @@ class ScanCanvas extends Canvas
   {
 
    // setVisible(true);
-    g.setColor(new Color(255, 0, 0));
+    g.setColor(new Color(0, 255, 0));
     g.drawString("ScanStart", 200, 200);
 
 

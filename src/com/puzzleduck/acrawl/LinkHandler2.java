@@ -7,8 +7,8 @@ public interface LinkHandler2
 
   int size();
 
-  boolean visited(String link);
+  boolean visited(AppData appData);
 
-  void addVisited(String link);
+  void addVisited(AppData appData);
 
 }//interface

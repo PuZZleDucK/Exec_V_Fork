@@ -54,7 +54,7 @@ public class LinkFinder2 extends RecursiveAction
 
 
  
-    if(!thisHandler.visited(thisUrl))
+    if(!thisHandler.visited(new AppData("Filler Name",thisUrl)))
     {
       try
       {
@@ -82,7 +82,7 @@ public class LinkFinder2 extends RecursiveAction
     //      threadDisplay.setCharAt(threadNumber, '-');
     //      System.out.print("\b\b\b\b\b\b\b\b"+threadDisplay);
           LinkTag currentFoundLink = (LinkTag) list.elementAt(i);
-          if(!currentFoundLink.getLink().isEmpty() && !thisHandler.visited(currentFoundLink.getLink()))//all valid links
+          if(!currentFoundLink.getLink().isEmpty() && !thisHandler.visited(new AppData("Filler Name",currentFoundLink.getLink())))//all valid links
           {
   //          System.out.print("(" +i+ ").");
           //  urlList.add(currentFoundLink.getLink());i
@@ -104,7 +104,7 @@ public class LinkFinder2 extends RecursiveAction
             }//if in play store
           }
         }//for
-        thisHandler.addVisited(thisUrl);
+        thisHandler.addVisited(new AppData("Filler Name",thisUrl));
 
          if(thisHandler.size() >= 100)
          {
