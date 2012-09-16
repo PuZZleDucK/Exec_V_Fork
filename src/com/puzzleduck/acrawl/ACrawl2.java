@@ -24,7 +24,8 @@ public class ACrawl2 implements LinkHandler2
 {
 
   private static ACrawl2 jCrawler;//
-  private final Collection<String> doneLinkList = Collections.synchronizedSet(new HashSet<String>());
+  private   final Collection<String> doneLinkList = Collections.synchronizedSet(new HashSet<String>());
+  protected final Collection<AppData> appLinkList = Collections.synchronizedSet(new HashSet<AppData>());
   private String workingUrl;
 //  private ExecutorService executorService;
   private ForkJoinPool forkPool;
