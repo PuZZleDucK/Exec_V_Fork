@@ -1,6 +1,6 @@
 //(c)me & gpl3
 //java web crawler
-package com.puzzleduck.acrawl;
+package com.puzzleduck.vcrawl;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -8,55 +8,44 @@ import java.util.HashSet;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ForkJoinPool;
-import com.puzzleduck.acrawl.LinkHandler2;
+import com.puzzleduck.vcrawl.LinkHandler2;
 
-
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 
 
-public class ACrawl2 implements LinkHandler2 
+
+public class VCrawl2 implements LinkHandler2 
 {
+  private String titleString =  "Visual Crawler";
+  private String startURL = "http://play.google.com/store";
 
-  private static ACrawl2 jCrawler;//
+
+
+
+
+  private static VCrawl2 jCrawler;//
   private final Collection<String> doneLinkList = Collections.synchronizedSet(new HashSet<String>());
   private String workingUrl;
 //  private ExecutorService executorService;
   private ForkJoinPool forkPool;
 
-  private ACrawl2()
+  private VCrawl2()
   {
     System.out.println("new JC");
   }
 
   public static void main(String args[])//
   {
-
-//ui init:
-    JFrame mainWindow = new JFrame();
-
-    int windowHeight = 800;
-    int windowWidth = 600;
-    mainWindow.setBounds(0, 0, windowWidth, windowHeight);
-
-    JPanel mainPanel = new JPanel();
-    mainPanel.setLayout(new BoxLayout(mainPanel,BoxLayout.PAGE_AXIS));
-    mainWindow.getContentPane().add(mainPanel);
-
-    JLabel versionLabel = new JLabel("MarketScanner: Mk.1.1-UI");
-    mainPanel.add(versionLabel);
-    mainWindow.setTitle("ScanWindow");
-
-    mainWindow.setVisible(true);
-
  //   private static JCrawl jCrawler;
 // a contracted one
 
-    jCrawler = new ACrawl2();
+    jCrawler = new VCrawl2();
 
 
     if(args.length > 0)
