@@ -16,6 +16,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
+import java.awt.Dimension;
 
 
 
@@ -50,6 +51,13 @@ public class ACrawl2 implements LinkHandler2
     JLabel versionLabel = new JLabel("MarketScanner: Mk.1.1-UI");
     mainPanel.add(versionLabel);
     mainWindow.setTitle("ScanWindow");
+
+    ScanPanel sPanel = new ScanPanel();
+    Dimension panelD = new Dimension(400,400);
+    sPanel.setPreferredSize(panelD);
+    mainPanel.add(sPanel);
+    
+
 
     mainWindow.setVisible(true);
 
