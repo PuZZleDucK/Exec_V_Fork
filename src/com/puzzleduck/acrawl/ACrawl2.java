@@ -30,6 +30,8 @@ public class ACrawl2 implements LinkHandler2
 //  private ExecutorService executorService;
   private ForkJoinPool forkPool;
 
+  protected static ScanPanel sPanel;
+
   private ACrawl2()
   {
     System.out.println("new JC");
@@ -53,7 +55,7 @@ public class ACrawl2 implements LinkHandler2
     mainPanel.add(versionLabel);
     mainWindow.setTitle("ScanWindow");
 
-    ScanPanel sPanel = new ScanPanel();
+    sPanel = new ScanPanel();
     Dimension panelD = new Dimension(400,400);
     sPanel.setPreferredSize(panelD);
     mainPanel.add(sPanel);
@@ -87,7 +89,8 @@ public class ACrawl2 implements LinkHandler2
 
 
  //   jCrawler.executorService = Executors.newFixedThreadPool(6);
-    jCrawler.forkPool = new ForkJoinPool(8);
+    //jCrawler.forkPool = new ForkJoinPool(8);
+    jCrawler.forkPool = new ForkJoinPool(4);//downsizing
     //executorService.execute( new LinkFinder(jCrawler.workingURL, this) );
     try
     {    
@@ -116,7 +119,14 @@ public class ACrawl2 implements LinkHandler2
   public boolean visited(AppData thisAppData)
   {
     //return doneLinkList.contains(link);
-    return appLinkList.contains(thisAppData);
+    if(appLinkList.contains(thisAppData))
+    {
+      return true;
+    }else
+    {
+      System.out.println("new: " + jCrawler.workingUrl);
+      return false;
+    }
   }
 
   @Override
@@ -138,6 +148,7 @@ public class ACrawl2 implements LinkHandler2
   {
     //doneLinkList.add(s);
     appLinkList.add( thisAppData );
+    sPanel.setVisible(true);
   }
 
 
